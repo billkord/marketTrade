@@ -39,7 +39,7 @@ Messages are sent via POST at http://localhost:8080/api/messages/consume.<br /> 
   
 ## CLIENT SIDE
 ### trade-client
-  Navigate to "*trade/trade-webapp*" and run 
+  Navigate to "*trade/trade-client*" and run 
   ``` bash
   npm start dev
   ```
