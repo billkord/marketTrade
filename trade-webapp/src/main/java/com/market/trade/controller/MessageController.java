@@ -1,6 +1,7 @@
 package com.market.trade.controller;
 
 import com.market.trade.dto.ConsumeMessageDTO;
+import com.market.trade.exception.IllegalCurrencySymbol;
 import com.market.trade.exception.InvalidTimestampException;
 import com.market.trade.repository.MessageRepository;
 import com.market.trade.service.PersonService;
@@ -40,7 +41,9 @@ public class MessageController {
         try {
             processorService.processMessage(consumeMessageDTO);
         } catch (InvalidTimestampException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Date format should be dd-MMM-yy hh:mm:ss");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Date format should be dd-MMM-yy hh:mm:ss");
+        } catch (IllegalCurrencySymbol e1) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e1.getMessage() + " currency is not acceptable. Please contact for further information");
         }
         return ResponseEntity.ok(HttpStatus.OK);
     }

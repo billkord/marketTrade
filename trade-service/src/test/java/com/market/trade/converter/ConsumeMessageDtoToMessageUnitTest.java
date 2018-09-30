@@ -2,6 +2,7 @@ package com.market.trade.converter;
 
 import com.market.trade.MockGenerateEntitiesHelper;
 import com.market.trade.dto.ConsumeMessageDTO;
+import com.market.trade.exception.IllegalCurrencySymbol;
 import com.market.trade.exception.InvalidTimestampException;
 import com.market.trade.model.CurrencySymbol;
 import com.market.trade.model.Message;
@@ -52,7 +53,7 @@ public class ConsumeMessageDtoToMessageUnitTest {
     }
 
     @Test
-    public void test () {
+    public void test () throws Exception {
         MockGenerateEntitiesHelper generator = new MockGenerateEntitiesHelper();
         ConsumeMessageDTO validDto = generator.getConsumeMessageDTO();
         ConsumeMessageDTO invalidDto = generator.getConsumeMessageDTO();

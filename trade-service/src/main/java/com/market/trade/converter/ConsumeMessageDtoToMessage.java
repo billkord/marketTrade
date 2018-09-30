@@ -1,6 +1,7 @@
 package com.market.trade.converter;
 
 import com.market.trade.dto.ConsumeMessageDTO;
+import com.market.trade.exception.IllegalCurrencySymbol;
 import com.market.trade.exception.InvalidTimestampException;
 import com.market.trade.model.CurrencySymbol;
 import com.market.trade.model.Message;
@@ -25,7 +26,7 @@ public class ConsumeMessageDtoToMessage {
     @Autowired
     private CurrencySymbolService currencySymbolService;
 
-    public Message apply(ConsumeMessageDTO consumeMessageDTO) {
+    public Message apply(ConsumeMessageDTO consumeMessageDTO) throws IllegalCurrencySymbol {
         Message message = new Message();
 
         Person person = personRepository.findOne(consumeMessageDTO.getUserId());

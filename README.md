@@ -38,6 +38,7 @@ spring.jpa.hibernate.ddl-auto=auto
     }
 ```
 Messages are sent via POST at http://localhost:8080/api/messages/consume.
+<br/>(curl -H "Content-Type: application/json" --request POST -d '{"userId": 2, "currencyFrom": "BBD", "currencyTo": "GBP", "amountSell": 1000, "amountBuy": 747.10, "rate": 0.7471, "timePlaced" : "24-JAN-15 10:27:44", "originatingCountry" : "GR"}' -u oneperson@email.com:123456 http://localhost:8080/api/messages/consume)
 <br /> Ensure that you have set credentials **"username"** to **oneperson@email.com** and **"password"** to **123456** in order to get permission for above url. Also using those credentials, you should use **userId**=**2** at the messages sent, to pass the validation stage.
 <br/>To run through command line navigate to "*trade/trade-webapp*" and run
   ``` bash
