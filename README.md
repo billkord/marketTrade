@@ -6,20 +6,22 @@
   * Node.js 6.x
 
 ## SERVER SIDE
-  It contains two applications:
+  It contains two projects. Build all the projects using
+  ``` bash
+  mvn clean install
+  ```
+  while being at the project path */trade*
 
 ### 1. trade-initializer
   Initializes the database of the project with 2 users. It also get information about currency symbols and names from an API   provided by http://apilayer.net
-#### BEFORE APPLICATION START
-  In order to generate the schema tables navigate to "*trade/trade-webapp/src/main/resources/application.properties*" and set:
+  In order to generate the schema tables navigate to "*trade/trade-initializer/src/main/resources/application.properties*" and ensure that:
 ``` bash
-spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.ddl-auto=auto
 ```
-#### AFTER APPLICATION START
-  Stop the application and set:
-``` bash
-spring.jpa.hibernate.ddl-auto=none
-```
+  To run through command line navigate to "*trade/trade-initializer*" and run
+  ``` bash
+  mvn spring-boot:run
+  ```
 
 ### 2. trade-webapp
   It is the main app. It consumes Json messages of type:
@@ -35,11 +37,21 @@ spring.jpa.hibernate.ddl-auto=none
       "originatingCountry" : "some_string"
     }
 ```
-Messages are sent via POST at http://localhost:8080/api/messages/consume.<br /> Ensure that you have set credentials **"username"** to **oneperson@email.com** and **"password"** to **123456** in order to get permission for above url. Also using those credentials, you should use **userId**=**2** at the messages sent, to pass the validation stage.
+Messages are sent via POST at http://localhost:8080/api/messages/consume.
+<br /> Ensure that you have set credentials **"username"** to **oneperson@email.com** and **"password"** to **123456** in order to get permission for above url. Also using those credentials, you should use **userId**=**2** at the messages sent, to pass the validation stage.
+<br/>To run through command line navigate to "*trade/trade-webapp*" and run
+  ``` bash
+  mvn spring-boot:run
+  ```
   
 ## CLIENT SIDE
 ### trade-client
-  Navigate to "*trade/trade-client*" and run 
+
+  Get all client dependencies by going to "*trade/trade-client*" and run
+  ``` bash
+    npm install
+   ```
+  <br/>To start the app and run (at the same path)
   ``` bash
   npm start dev
   ```

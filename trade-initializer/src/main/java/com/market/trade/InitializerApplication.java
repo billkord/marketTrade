@@ -25,6 +25,9 @@ public class InitializerApplication implements ApplicationRunner {
     private PopulateService populateService;
 
     @Autowired
+    private ShutdownManager shutdownManager;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     public static void main(String[] args) {
@@ -41,6 +44,7 @@ public class InitializerApplication implements ApplicationRunner {
         populateService.initializeDB();
         CurrencyApiWrapper response = restTemplate.getForObject(currencyUrl, CurrencyApiWrapper.class);
         populateService.populateToDB(response);
+        shutdownManager.initiateShutdown(0);
     }
 
 }
