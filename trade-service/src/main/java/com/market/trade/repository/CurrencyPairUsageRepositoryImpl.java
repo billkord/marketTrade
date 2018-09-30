@@ -48,8 +48,8 @@ public class CurrencyPairUsageRepositoryImpl implements CurrencyPairUsageReposit
     }
 
     private Collection<CurrencyPairUsage> getCurrencyPairUsages(Timestamp timestamp) {
-        TypedQuery<Message> query = entityManager.createQuery("SELECT m FROM Message m WHERE m.timePlaced >= ?1", Message.class);
-        query.setParameter(1, timestamp);
+        TypedQuery<Message> query = entityManager.createQuery("SELECT m FROM Message m WHERE m.timePlaced > ?1", Message.class);
+        query.setParameter(1, addDays(timestamp, -1));
         Collection<Message> messages = query.getResultList();
 
         Map<CurrencyFromTo, List<Message>> map = messages
@@ -66,6 +66,13 @@ public class CurrencyPairUsageRepositoryImpl implements CurrencyPairUsageReposit
                 .stream()
                 .map(this::createCurrencyPairUsage)
                 .collect(Collectors.toList());
+    }
+
+    private Timestamp addDays(Timestamp timestamp, int daysToAdd) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(timestamp);
+        calendar.add(Calendar.DAY_OF_MONTH, daysToAdd);
+        return new Timestamp(calendar.getTime().getTime());
     }
 
     private Timestamp startOfMonth () {
@@ -90,6 +97,7 @@ public class CurrencyPairUsageRepositoryImpl implements CurrencyPairUsageReposit
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(today);
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 
         Date startOfWeek = calendar.getTime();
